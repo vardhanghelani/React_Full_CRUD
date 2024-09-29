@@ -1,0 +1,17 @@
+.container {
+    background-image: url('https://t3.ftcdn.net/jpg/06/27/85/70/360_F_627857017_5r2FsJYJeZfufqiXcUvKCENF3fz4xFyg.jpg');
+    background-size: cover; 
+    background-position: center;  
+    min-height: 100vh; 
+    padding: 20px; 
+    width: 100%;
+    margin-left: 0;
+
+
+}
+
+/* @media (max-width: 768px) {
+    .container {
+        background-size: contain; 
+    }
+} */
