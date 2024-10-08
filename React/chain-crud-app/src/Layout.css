@@ -2,16 +2,49 @@
     background-image: url('https://t3.ftcdn.net/jpg/06/27/85/70/360_F_627857017_5r2FsJYJeZfufqiXcUvKCENF3fz4xFyg.jpg');
     background-size: cover; 
     background-position: center;  
-    min-height: 100vh; 
-    padding: 20px; 
-    width: 100%;
-    margin-left: 0;
-
-
+ 
+      /* Remove this line */
+    max-width: 1570PX;
+    min-height: 100vh;
+    /* border: 2PX SOLID blue; */
 }
 
-/* @media (max-width: 768px) {
-    .container {
-        background-size: contain; 
-    }
-} */
+.body {
+    box-sizing: border-box;
+    height: 100vh;  /* Set height to 100vh */
+    width: 100%;
+}
+.col1{
+    
+    
+        background-image: linear-gradient(45deg, #ff7e5f, rgb(152, 153, 255));
+    
+    
+    /* border-radius: 22px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.nav-item{
+    margin-right:100px ;
+    border: 2px solid green;
+    border-radius: 21px;
+    width: 100px;
+    display:flex;
+    justify-content: center;
+    background-color: lightcoral;
+}
+
+.nav-item:hover{
+    background-color: rgb(232, 191, 11);
+}
+
+.nav-link:active{
+    color: rgb(255, 255, 255);
+}
+.nav-link{
+    color: rgb(0, 0, 0);
+
+    text-decoration: solid;
+}

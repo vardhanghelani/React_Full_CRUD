@@ -16,28 +16,30 @@ function SalesData() {
             })
             .then((res) => setData(res))
             .catch((error) => {
-                console.error("Fetch error:", error); // Log error details
+                console.error("Fetch error:", error); 
                 setError("Failed to fetch edited stocks data.");
             });
     }, []);
 
     const handleDelete = (id) => {
-        const apiUrl = `http://localhost:3000/EditedStocks/${id}`;
-        fetch(apiUrl, {
-          method: "DELETE",
-        })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          // Continue with the state update or refetch here
-        })
-        .catch((error) => {
-          console.error("Delete error:", error); // Log delete error details
-          setError("Failed to delete stock.");
-        });
-      };
-      
+        if (window.confirm("Are you sure you want to delete this stock?")) {
+            const apiUrl = `http://localhost:3000/EditedStocks/${id}`;
+            fetch(apiUrl, {
+              method: "DELETE",
+            })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              // Update the local state to remove the deleted stock
+              setData((prevData) => prevData.filter((stock) => stock.id !== id));
+            })
+            .catch((error) => {
+              console.error("Delete error:", error); 
+              setError("Failed to delete stock.");
+            });
+        }
+    };
       
     const formattedEditedStocks = data.map((stock) => {
         return (

@@ -1,0 +1,32 @@
+.container{
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+    /* padding: 20px; */
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    /* margin: 20px; */
+}
+
+.container h1{
+    font-size: xx-large;
+    color: #007bff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    word-spacing: 3px;
+    line-height: 1.1;
+    animation: colorChange 2s infinite;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+}
+
+@keyframes colorChange {
+    0% { color: #007bff; }
+    50% { color: #28a745; }
+    100% { color: #dc3545; }
+    
+}
