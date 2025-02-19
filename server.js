@@ -16,10 +16,16 @@ const MONGO_URI = process.env.MONGO_URI;
 app.use(express.json()); // Allow JSON data in requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+
+// ✅ Proper CORS setup to allow your frontend
+app.use(cors({
+    origin: "https://vardhanghelani.github.io", // GitHub Pages root domain
+    methods: "GET, POST, PATCH, DELETE",
+    credentials: true
+}));
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
