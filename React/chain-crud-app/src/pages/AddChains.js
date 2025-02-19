@@ -64,7 +64,7 @@ function AddChains() {
                 <div className="offset-4 col-8">
                     <button
                         onClick={() => {
-                            const apiUrl = 'http://localhost:3000/Chains';
+                            const apiUrl = 'https://chain-backend-5foc.onrender.com/Chains';
                             fetch(apiUrl, {
                                 method: 'POST',
                                 body: JSON.stringify(data),

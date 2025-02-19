@@ -6,7 +6,7 @@ function SalesData() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const apiUrl = "http://localhost:3000/EditedStocks"; 
+        const apiUrl = "https://chain-backend-5foc.onrender.com/EditedStocks"; 
         fetch(apiUrl)
             .then((res) => {
                 if (!res.ok) {
@@ -23,7 +23,7 @@ function SalesData() {
 
     const handleDelete = (id) => {
         if (window.confirm("Are you sure you want to delete this stock?")) {
-            const apiUrl = `http://localhost:3000/EditedStocks/${id}`;
+            const apiUrl = `https://chain-backend-5foc.onrender.com/EditedStocks/${id}`;
             fetch(apiUrl, {
               method: "DELETE",
             })

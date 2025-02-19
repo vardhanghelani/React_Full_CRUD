@@ -7,7 +7,7 @@ function DetailChains() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiUrl = `http://localhost:3000/Chains/${id}`;
+    const apiUrl = `https://chain-backend-5foc.onrender.com/Chains/${id}`;
     fetch(apiUrl, { method: "GET" })
       .then((res) => res.json())
       .then((res) => setData(res));
@@ -21,7 +21,7 @@ function DetailChains() {
       &nbsp;&nbsp;&nbsp;
       <button
         onClick={() => {
-          const apiUrl = `http://localhost:3000/Chains/${id}`;
+          const apiUrl = `https://chain-backend-5foc.onrender.com/Chains/${id}`;
           fetch(apiUrl, { method: "DELETE" })
             .then((res) => res.json())
             .then(() => {

@@ -9,7 +9,7 @@ function Home(){
             <p>The application uses a MongoDB database to store the data.</p>
             <p>To get started, install the required dependencies by running <code>npm install</code> in the root directory of the project.</p>
             <p>Then, start the development server by running <code>npm start</code>.</p >
-            <p>The application will be running on <a href="http://localhost:3000">http://localhost:3000</a>.</p>
+            <p>The application will be running on <a href="https://chain-backend-5foc.onrender.com">http://localhost:3000</a>.</p>
             <p>To Get all the Chains present in database vist <a href="/chains">Chains</a> page.</p>
             <p>
                 To Get detail of any Specific chain Click on Read more after visiting <a href="/chains">Chains</a>

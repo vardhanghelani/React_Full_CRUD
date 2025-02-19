@@ -5,7 +5,7 @@ function GetAllChains() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        const apiUrl = "http://localhost:3000/Chains";
+        const apiUrl = "https://chain-backend-5foc.onrender.com/Chains";
         fetch(apiUrl)
             .then(res => res.json())
             .then(res => setData(res));
