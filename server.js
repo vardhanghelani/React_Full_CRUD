@@ -1,35 +1,32 @@
+require('dotenv').config(); // Load environment variables
+
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const Chains = require('./Chains');
 const EditedStock = require('./EditedStock');
 
-dotenv.config(); // Load environment variables
-
 const app = express();
-const PORT = process.env.PORT || 3000;
-const mongoURI = process.env.MONGO_URI; // MongoDB Atlas Connection String
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
 // Middleware
+app.use(express.json()); // Allow JSON data in requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-// Connect to MongoDB Atlas
-mongoose.connect(mongoURI, {
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => console.log('✅ Connected to MongoDB Atlas'))
+.then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
-// Default Route (Server Check)
-app.get("/", (req, res) => {
-    res.send("✅ Backend is running successfully!");
-});
+// API Routes
 
 // Get all chains
 app.get('/Chains', async (req, res) => {
@@ -37,44 +34,37 @@ app.get('/Chains', async (req, res) => {
         const chains = await Chains.find();
         res.json(chains);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching chains", error });
+        res.status(500).json({ message: 'Error fetching chains' });
     }
 });
 
-// Get a chain by ID
+// Get a specific chain by ID
 app.get('/Chains/:id', async (req, res) => {
     try {
         const chain = await Chains.findOne({ id: req.params.id });
-        if (!chain) return res.status(404).json({ message: "Chain not found" });
+        if (!chain) {
+            return res.status(404).json({ message: 'Chain not found' });
+        }
         res.json(chain);
     } catch (error) {
-        res.status(500).json({ message: "Error fetching chain", error });
+        res.status(500).json({ message: 'Error fetching chain' });
     }
 });
 
 // Create a new chain
 app.post('/Chains', async (req, res) => {
     try {
-        const chain = new Chains({
+        const newChain = new Chains({
             id: req.body.id,
             name: req.body.name,
             price: req.body.price,
-            image: req.body.image // Assuming this stores the image URL
+            image: req.body.image
         });
-        const savedChain = await chain.save();
+
+        const savedChain = await newChain.save();
         res.status(201).json(savedChain);
     } catch (error) {
-        res.status(400).json({ message: "Error creating chain", error });
-    }
-});
-
-// Delete a chain
-app.delete('/Chains/:id', async (req, res) => {
-    try {
-        const result = await Chains.deleteOne({ id: req.params.id });
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ message: "Error deleting chain", error });
+        res.status(400).json({ message: 'Error creating chain' });
     }
 });
 
@@ -86,10 +76,29 @@ app.patch('/Chains/:id', async (req, res) => {
             { $set: req.body },
             { new: true }
         );
-        if (!updatedChain) return res.status(404).json({ message: "Chain not found" });
+
+        if (!updatedChain) {
+            return res.status(404).json({ message: 'Chain not found' });
+        }
+
         res.json(updatedChain);
     } catch (error) {
-        res.status(500).json({ message: "Error updating chain", error });
+        res.status(500).json({ message: 'Error updating chain' });
+    }
+});
+
+// Delete a chain
+app.delete('/Chains/:id', async (req, res) => {
+    try {
+        const deletedChain = await Chains.deleteOne({ id: req.params.id });
+
+        if (deletedChain.deletedCount === 0) {
+            return res.status(404).json({ message: 'Chain not found' });
+        }
+
+        res.json({ message: 'Chain deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting chain' });
     }
 });
 
@@ -99,7 +108,7 @@ app.get('/EditedStocks', async (req, res) => {
         const stocks = await EditedStock.find();
         res.json(stocks);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching edited stocks', error });
+        res.status(500).json({ message: 'Error fetching edited stocks' });
     }
 });
 
@@ -108,26 +117,22 @@ app.post('/EditedStocks', async (req, res) => {
     try {
         const newStock = new EditedStock({
             id: req.body.id,
-            newStock: req.body.newStock
+            newStock: req.body.newStock,
         });
+
         const savedStock = await newStock.save();
         res.status(201).json(savedStock);
     } catch (error) {
-        res.status(400).json({ message: 'Error creating edited stock', error });
+        res.status(400).json({ message: 'Error creating edited stock' });
     }
 });
 
-// Delete an edited stock
-app.delete('/EditedStocks/:id', async (req, res) => {
-    try {
-        const result = await EditedStock.deleteOne({ id: req.params.id });
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ message: 'Error deleting edited stock', error });
-    }
+// Root route for checking server status
+app.get('/', (req, res) => {
+    res.send('🚀 Server is running...');
 });
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
 });
