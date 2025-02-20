@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 
 // ✅ Proper CORS setup to allow your frontend
 app.use(cors({
-    origin: "https://vardhanghelani.github.io", // GitHub Pages root domain
+    origin: "*", // GitHub Pages root domain
     methods: "GET, POST, PATCH, DELETE",
     credentials: true
 }));
