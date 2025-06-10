@@ -7,29 +7,26 @@ function DetailChains() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiUrl = `https://chain-backend-5foc.onrender.com/Chains/${id}`;
+    const apiUrl = `${process.env.REACT_APP_API_URL}/Chains/${id}`;
     fetch(apiUrl, { method: "GET" })
       .then((res) => res.json())
       .then((res) => setData(res));
-  }, [id]); // Add `id` to the dependency array
+  }, [id]);
+
+  const handleDelete = () => {
+    const apiUrl = `${process.env.REACT_APP_API_URL}/Chains/${id}`;
+    fetch(apiUrl, { method: "DELETE" })
+      .then((res) => res.json())
+      .then(() => {
+        navigate("/Chains");
+      });
+  };
 
   return (
     <>
-      <Link className="btn btn-info" to="/Chains">
-        Back
-      </Link>
+      <Link className="btn btn-info" to="/Chains">Back</Link>
       &nbsp;&nbsp;&nbsp;
-      <button
-        onClick={() => {
-          const apiUrl = `https://chain-backend-5foc.onrender.com/Chains/${id}`;
-          fetch(apiUrl, { method: "DELETE" })
-            .then((res) => res.json())
-            .then(() => {
-              navigate("/Chains");
-            });
-        }}
-        className="btn btn-danger"
-      >
+      <button onClick={handleDelete} className="btn btn-danger">
         Delete
       </button>
       <h1>Name = {data.name}</h1>
@@ -37,7 +34,7 @@ function DetailChains() {
       <h3>Stock = {data.stock}</h3>
       <img
         src={data.image}
-        alt={data.name} // Add meaningful alt text
+        alt={data.name}
         style={{ maxWidth: "30%", height: "auto" }}
       />
     </>

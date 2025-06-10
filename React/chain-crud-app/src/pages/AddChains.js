@@ -5,80 +5,92 @@ function AddChains() {
     const [data, setData] = useState({});
     const navigate = useNavigate();
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData({ ...data, [name]: value });
+    };
+
+    const handleSubmit = () => {
+        const apiUrl = `${process.env.REACT_APP_API_URL}/Chains`;
+
+        fetch(apiUrl, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((res) => res.json())
+            .then(() => {
+                navigate('/Chains');
+            });
+    };
+
     return (
         <>
             <div className="form-group row">
-                <label htmlFor="text3" className="col-4 col-form-label">Enter ChainID</label>
+                <label className="col-4 col-form-label">Enter ChainID</label>
                 <div className="col-8">
                     <input
-                        onChange={(e) => setData({ ...data, id: e.target.value })} // Changed to 'id'
+                        name="id"
                         type="text"
                         className="form-control"
+                        onChange={handleChange}
                     />
                 </div>
             </div>
 
             <div className="form-group row">
-                <label htmlFor="text1" className="col-4 col-form-label">Enter ChainName</label>
+                <label className="col-4 col-form-label">Enter ChainName</label>
                 <div className="col-8">
                     <input
-                        onChange={(e) => setData({ ...data, name: e.target.value })} // Changed to 'name'
+                        name="name"
                         type="text"
                         className="form-control"
+                        onChange={handleChange}
                     />
                 </div>
             </div>
 
             <div className="form-group row">
-                <label htmlFor="text" className="col-4 col-form-label">Enter ChainPrice</label>
+                <label className="col-4 col-form-label">Enter ChainPrice</label>
                 <div className="col-8">
                     <input
-                        onChange={(e) => setData({ ...data, price: e.target.value })} // Changed to 'price'
+                        name="price"
                         type="text"
                         className="form-control"
+                        onChange={handleChange}
                     />
                 </div>
             </div>
+
             <div className="form-group row">
-                <label htmlFor="text" className="col-4 col-form-label">Enter ChainStock</label>
+                <label className="col-4 col-form-label">Enter ChainStock</label>
                 <div className="col-8">
                     <input
-                        onChange={(e) => setData({ ...data, stock: e.target.value })} // Changed to 'image'
+                        name="stock"
                         type="text"
                         className="form-control"
+                        onChange={handleChange}
                     />
                 </div>
             </div>
+
             <div className="form-group row">
-                <label htmlFor="text" className="col-4 col-form-label">Enter ChainImage</label>
+                <label className="col-4 col-form-label">Enter ChainImage</label>
                 <div className="col-8">
                     <input
-                        onChange={(e) => setData({ ...data, iamge: e.target.value })} // Changed to 'image'
+                        name="image"
                         type="text"
                         className="form-control"
+                        onChange={handleChange}
                     />
                 </div>
             </div>
 
             <div className="form-group row">
                 <div className="offset-4 col-8">
-                    <button
-                        onClick={() => {
-                            const apiUrl = 'https://chain-backend-5foc.onrender.com/Chains';
-                            fetch(apiUrl, {
-                                method: 'POST',
-                                body: JSON.stringify(data),
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                            })
-                                .then((res) => res.json())
-                                .then(() => {
-                                    navigate('/Chains');
-                                });
-                        }}
-                        className="btn btn-primary"
-                    >
+                    <button onClick={handleSubmit} className="btn btn-primary">
                         Add
                     </button>
                 </div>
