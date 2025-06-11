@@ -19,11 +19,17 @@ app.use(bodyParser.json());
 
 // ✅ Proper CORS setup to allow your frontend
 const corsOptions = {
-    origin: "http://localhost:3000", // ✅ Your React frontend
-    methods: "GET,POST,PATCH,DELETE",
-    credentials: true
-};
-app.use(cors(corsOptions));
+    origin: [
+      "http://localhost:3000",
+      "https://vardhanghelani.github.io",
+      "https://vardhanghelani.github.io/React_Full_CRUD/"
+    ],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true,
+  };
+  
+  app.use(cors(corsOptions));
 
 
 // Connect to MongoDB
