@@ -8,7 +8,7 @@ function StockEdit() {
     const { id } = useParams();
 
     useEffect(() => {
-        const apiUrl = "https://chain-backend-5foc.onrender.com/Chains/" + id;
+        const apiUrl = "https://chain-backend-f5oc.onrender.com/Chains/" + id;
         fetch(apiUrl)
             .then(res => res.json())
             .then(res => setData(res));
@@ -20,7 +20,7 @@ function StockEdit() {
         const updatedData = { ...data, stock: updatedStock };
     
         // Update the chain stock
-        const apiUrl = "https://chain-backend-5foc.onrender.com/Chains/" + id;
+        const apiUrl = "https://chain-backend-f5oc.onrender.com/Chains/" + id;
         fetch(apiUrl, {
             method: "PATCH",
             body: JSON.stringify(updatedData),
@@ -34,7 +34,7 @@ function StockEdit() {
                 id: data.id, // This should match the id of the stock you are editing
                 newStock: newStock // The amount subtracted
             };
-            return fetch("https://chain-backend-5foc.onrender.com/EditedStocks", {
+            return fetch("https://chain-backend-f5oc.onrender.com/EditedStocks", {
                 method: "POST",
                 body: JSON.stringify(editedStockData),
                 headers: {

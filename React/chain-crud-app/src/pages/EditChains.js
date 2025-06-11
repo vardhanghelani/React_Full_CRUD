@@ -7,7 +7,7 @@ function EditChains() {
     const { id } = useParams();
 
     useEffect(() => {
-        const apiUrl = "https://chain-backend-5foc.onrender.com/Chains/" + id;
+        const apiUrl = "https://chain-backend-f5oc.onrender.com/Chains/" + id;
         fetch(apiUrl)
             .then(res => res.json())
             .then(res => setData(res));
@@ -73,7 +73,7 @@ function EditChains() {
                             image: data.image,
                         };
 
-                        const apiUrl = "https://chain-backend-5foc.onrender.com/Chains/" + id;
+                        const apiUrl = "https://chain-backend-f5oc.onrender.com/Chains/" + id;
                         fetch(apiUrl, {
                             method: "PATCH",  // Use PATCH method
                             body: JSON.stringify(updatedData),  // Send the updated data
