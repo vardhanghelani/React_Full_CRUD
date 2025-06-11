@@ -60,6 +60,22 @@ app.get('/Chains/:id', async (req, res) => {
 // Create a new chain
 app.post('/Chains', async (req, res) => {
     try {
+        const { id, name, price, image } = req.body;
+
+        if (!id || !name || !price || !image) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        const newChain = new Chains({ id, name, price, image });
+
+        const savedChain = await newChain.save();
+        res.status(201).json(savedChain);
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating chain', error: error.message });
+    }
+});
+app.post('/Chains', async (req, res) => {
+    try {
         const newChain = new Chains({
             id: req.body.id,
             name: req.body.name,
