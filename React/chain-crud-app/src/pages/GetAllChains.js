@@ -7,7 +7,7 @@ function GetAllChains() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const apiUrl = `https://chain-backend-f5oc.onrender.com/chains/`;
+        const apiUrl = `${process.env.REACT_APP_API_URL}/chains/`;
         ;
         
         const fetchData = async () => {
