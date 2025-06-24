@@ -19,15 +19,13 @@ app.use(bodyParser.json());
 
 // ✅ Proper CORS setup to allow your frontend
 const corsOptions = {
-    origin: ['*'
-    ],
+    origin: ['https://react-full-crud-blond.vercel.app'], // ✅ whitelist Vercel domain
     methods: ["GET", "POST", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
-  };
-  
-  app.use(cors(corsOptions));
+};
 
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI, {
